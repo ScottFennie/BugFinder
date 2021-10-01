@@ -1,0 +1,16 @@
+
+  {
+    "name": "bugfinder2",
+    "version": "1.0.0",
+    "scripts": {
+      "build": "npm run setup:server",
+      "setup:app": "npm run setup:server && npm run setup:client",
+      "setup:client": "cd BugFinder2.client && npm i",
+      "setup:server": "cd BugFinder2 && npm i",
+      "start": "node BugFinder2/index.js"
+    },
+    "engines": {
+      "node": "^14.17.0"
+    }
+  }
+  
