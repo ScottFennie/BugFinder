@@ -1,13 +1,16 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+  <nav class="navbar navbar-expand-lg bg-white shadow-sm px-3">
+    <router-link class="navbar-brand d-flex" :to="{ name: 'Bugs' }">
       <div class="d-flex flex-column align-items-center">
         <img
           alt="logo"
-          src="../assets/img/cw-logo.png"
+          src="../assets/img/bug.png"
           height="45"
         />
       </div>
+      <h2 class="ms-2 mt-1 grad-text">
+        BugFinder
+      </h2>
     </router-link>
     <button
       class="navbar-toggler"
@@ -23,14 +26,14 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
+          <!-- <router-link :to="{ name: 'About' }" class="btn text-primary lighten-30 selectable text-uppercase">
             About
-          </router-link>
+          </router-link> -->
         </li>
       </ul>
       <span class="navbar-text">
         <button
-          class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0"
+          class="btn selectable text-primary lighten-30 text-uppercase my-2 my-lg-0"
           @click="login"
           v-if="!user.isAuthenticated"
         >
@@ -117,5 +120,14 @@ a:hover {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+.grad-text{
+background: #0066FF;
+background: -webkit-linear-gradient(to right, #0066FF 0%, #CF38A7 100%);
+background: -moz-linear-gradient(to right, #0066FF 0%, #CF38A7 100%);
+background: linear-gradient(to right, #0066FF 0%, #CF38A7 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+font-family: 'Gemunu Libre', sans-serif;
 }
 </style>
