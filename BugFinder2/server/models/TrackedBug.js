@@ -6,7 +6,7 @@ export const TrackedBugSchema = new Schema({
   accountId: { type: Schema.Types.ObjectId, required: true, ref: 'Account' }
 }, { timestamps: true, toJSON: { virtuals: true } })
 
-TrackedBugSchema.virtual('account', {
+TrackedBugSchema.virtual('tracker', {
   localField: 'accountId',
   foreignField: '_id',
   justOne: true,

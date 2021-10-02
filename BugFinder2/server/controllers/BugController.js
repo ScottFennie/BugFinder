@@ -12,7 +12,7 @@ export class BugController extends BaseController {
       .get('/:id/notes', this.getAllNotesByBugId)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createBug)
-      .put('/:id', this.editBug)
+      .put('/:bugId', this.editBug)
       .delete('/:bugId', this.closeBug)
   }
 
