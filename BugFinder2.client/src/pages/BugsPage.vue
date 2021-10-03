@@ -32,14 +32,29 @@
       </div>
     </div>
     <div class="row">
-      <Bug />
+      <Bug :bug="b" v-for="b in bugs" :key="b.id" />
     </div>
   </div>
 </template>
 
 <script>
+import { computed, onMounted } from '@vue/runtime-core'
+import { bugService } from '../services/BugService'
+import Pop from '../utils/Pop'
+import { AppState } from '../AppState'
 export default {
-  name: 'Home'
+  setup() {
+    onMounted(async() => {
+      try {
+        await bugService.getBugs()
+      } catch (error) {
+        Pop.toast(error, 'error')
+      }
+    })
+    return {
+      bugs: computed(() => AppState.bugs)
+    }
+  }
 }
 </script>
 
