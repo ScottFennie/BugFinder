@@ -1,6 +1,6 @@
 <template>
   <div class="col-12 mt-3">
-    <div class="row shadow-sm rounded bug-card py-2">
+    <div class="row shadow-sm rounded bug-card py-2" @click="goToBugPage(bug.id)">
       <div class="col-2">
         <h6 class="">
           {{ bug.title }}
@@ -16,7 +16,12 @@
         <h6>Last Updated</h6>
       </div>
       <div class="col-2">
-        <h6>{{ bug.closed }}</h6>
+        <h6 v-if="bug.closed === false">
+          Open
+        </h6>
+        <h6 v-if="bug.closed === true">
+          Open
+        </h6>
       </div>
     </div>
   </div>
@@ -28,6 +33,7 @@ import { bugService } from '../services/BugService'
 import { Bug } from '../models/Bug'
 import { computed, onMounted } from '@vue/runtime-core'
 import { AppState } from '../AppState'
+import { router } from '../router'
 export default {
   props: {
     bug: {
@@ -35,12 +41,20 @@ export default {
       required: true
     }
   },
-  setup() {
+  setup(props) {
     return {
       account: computed(() => AppState.account),
       async getBugs() {
         try {
           await bugService.getBugs()
+        } catch (error) {
+          Pop.toast(error)
+        }
+      },
+      async goToBugPage(bugId) {
+        try {
+          await bugService.gotToBugPage(bugId)
+          router.push({ name: 'BugInfo', params: { bugId: bugId } })
         } catch (error) {
           Pop.toast(error)
         }
