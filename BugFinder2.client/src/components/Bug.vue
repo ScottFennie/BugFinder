@@ -1,6 +1,6 @@
 <template>
   <div class="col-12 mt-3">
-    <div class="row shadow-sm rounded bug-card py-2" @click="goToBugPage(bug.id)">
+    <div :class=" bug.priority >= 5 ? 'high-priority row shadow-sm rounded bug-card py-3' : 'row shadow-sm rounded bug-card py-3'" @click="goToBugPage(bug.id)">
       <div class="col-2">
         <h6 class="">
           {{ bug.title }}
@@ -74,6 +74,9 @@ export default {
  border: 1px solid #E62D90;
  cursor: pointer;
  transform: scale(1.02);
+}
+.high-priority{
+background-color: #fd65b646;
 }
 
 </style>

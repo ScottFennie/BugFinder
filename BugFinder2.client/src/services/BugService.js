@@ -13,5 +13,16 @@ class BugService {
     const res = await api.get(`api/bugs/${bugId}`)
     logger.log('here is the new page', res)
   }
+
+  async createBug(bug) {
+    const res = await api.post('api/bugs', bug)
+    AppState.bugs.push(new Bug(res.data))
+  }
+
+  async getBugById(bugId) {
+    const res = await api.get(`api/bugs/${bugId}`)
+    AppState.bug = new Bug(res.data)
+    logger.log('here is the bug', AppState.bug)
+  }
 }
 export const bugService = new BugService()

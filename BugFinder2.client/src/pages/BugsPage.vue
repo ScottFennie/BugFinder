@@ -5,7 +5,7 @@
         <h3 class="text-pink">
           Bugs
         </h3>
-        <button class="btn btn-primary text-white button-pink">
+        <button class="btn btn-primary text-white button-pink" data-bs-target="#bug-modal" data-bs-toggle="modal">
           Report Bug
         </button>
       </div>
@@ -35,6 +35,15 @@
       <Bug :bug="b" v-for="b in bugs" :key="b.id" />
     </div>
   </div>
+
+  <Modal id="bug-modal">
+    <template #modal-title class="text-pink">
+      Add A Bug
+    </template>
+    <template #modal-body>
+      <BugForm />
+    </template>
+  </Modal>
 </template>
 
 <script>
