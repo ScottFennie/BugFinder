@@ -1,4 +1,4 @@
-export class Bug {
+export class Note {
   constructor(noteData) {
     this.id = noteData.id
     this.bugId = noteData.bugId

@@ -54,9 +54,17 @@
       </div>
       <div class="col-12">
         <div class="card mx-5 shadow-sm border-0">
-          <h3 class="py-2 ps-2">
-            Notes
-          </h3>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <h6 class="pt-2 ps-2">
+                  Add New Note
+                </h6>
+              </div>
+              <NoteForm />
+              <Note :note="n" v-for="n in notes" :key="n.id" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -73,9 +81,11 @@ export default {
     const route = useRoute()
     onMounted(async() => {
       await bugService.getBugById(route.params.bugId)
+      await bugService.getNotesByBugId(route.params.bugId)
     })
     return {
-      bug: computed(() => AppState.bug)
+      bug: computed(() => AppState.bug),
+      notes: computed(() => AppState.notes)
     }
   }
 
