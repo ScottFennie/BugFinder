@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="col-md-2">
-        <button type="submit" class="p-1 px-3 btn button-pink text-white" title="Create a Task">
+        <button type="submit" class="p-1 px-3 btn button-pink text-white" title="Create a Task" data-bs-dismiss="modal" aria-label="Close">
           <i class="mdi mdi-plus f-16" title="Add Task" />
         </button>
       </div>
@@ -64,7 +64,7 @@ export default {
         try {
           await bugService.createBug(editable.value)
           editable.value = ({})
-          Pop.toast(' New Bug Reported')
+          Pop.toast('New Bug Reported', 'success')
         } catch (error) {
           Pop.toast(error.message, 'error')
         }

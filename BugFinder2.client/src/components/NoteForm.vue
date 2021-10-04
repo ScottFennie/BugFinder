@@ -2,7 +2,7 @@
   <div class="col-12">
     <form @submit.prevent="createNote()">
       <div class="mb-3">
-        <input v-model="editable.body" type="text" class="form-control bg-white mb-1" id="exampleFormControlInput1" placeholder="Type note here">
+        <input v-model="editable.body" type="text" class="form-control bord bg-white mb-1" id="exampleFormControlInput1" placeholder="Type note here">
       </div>
     </form>
   </div>
@@ -35,6 +35,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.bord{
+    border-color: #E62D90;
+    border-style: dashed;
+    height: 5vh;
+}
 
 </style>

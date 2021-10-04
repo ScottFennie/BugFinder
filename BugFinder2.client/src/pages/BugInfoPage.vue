@@ -57,7 +57,7 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-12">
-                <h6 class="pt-2 ps-2">
+                <h6 class="pt-2 ps-1">
                   Add New Note
                 </h6>
               </div>
