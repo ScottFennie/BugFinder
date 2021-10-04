@@ -45,6 +45,20 @@
           </div>
         </div>
       </div>
+      <div class="col-12 mt-4">
+        <div class="ms-2">
+          <h3 class="ms-5 text-pink">
+            Notes
+          </h3>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="card mx-5 shadow-sm border-0">
+          <h3 class="py-2 ps-2">
+            Notes
+          </h3>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -74,6 +88,7 @@ export default {
   background-size:  cover;
   background-position:  center center;
   height: 25vh;
+  opacity: .9;
 }
 .spill{
   bottom: -100px;
@@ -81,6 +96,9 @@ export default {
 .button-pink{
 background-color: #E62D90;
 border: none;
+}
+.text-pink{
+color: #E62D90;
 }
 
 </style>
