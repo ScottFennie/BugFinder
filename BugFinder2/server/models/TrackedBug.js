@@ -12,6 +12,7 @@ TrackedBugSchema.virtual('tracker', {
   justOne: true,
   ref: 'Account'
 })
+
 TrackedBugSchema.virtual('bug', {
   localField: 'bugId',
   foreignField: '_id',

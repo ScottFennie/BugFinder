@@ -11,7 +11,7 @@ class DbContext {
   Profiles = mongoose.model('Profile', ProfileSchema, 'accounts');
 
   Bugs = mongoose.model('Bug', BugSchema);
-  TrackedBug = mongoose.model('TrackedBug', TrackedBugSchema);
+  TrackedBug = mongoose.model('TrackedBugs', TrackedBugSchema);
   Notes = mongoose.model('Note', NoteSchema);
 }
 

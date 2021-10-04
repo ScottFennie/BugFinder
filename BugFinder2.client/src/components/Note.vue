@@ -1,7 +1,9 @@
 <template>
   <div class="shadow-sm my-2 rounded">
     <div class="col-12">
-      <h5>Creator Name</h5>
+      <h5 class="pt-2">
+        Creator Name
+      </h5>
     </div>
     <div class="col-12">
       <p>{{ note.body }}</p>
