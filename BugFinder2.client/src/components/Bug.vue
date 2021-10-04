@@ -10,7 +10,9 @@
         <h6>{{ bug.priority }}</h6>
       </div>
       <div class="col-3">
-        <h6>{{ bug.creator.name }}</h6>
+        <h6 v-if="bug.creator">
+          {{ bug.creator.name }}
+        </h6>
       </div>
       <div class="col-2">
         <h6>Last Updated</h6>
@@ -31,7 +33,7 @@
 import Pop from '../utils/Pop'
 import { bugService } from '../services/BugService'
 import { Bug } from '../models/Bug'
-import { computed, onMounted } from '@vue/runtime-core'
+import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { router } from '../router'
 export default {

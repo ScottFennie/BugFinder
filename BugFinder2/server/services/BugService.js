@@ -3,7 +3,7 @@ import { BadRequest, Forbidden } from '../utils/Errors'
 
 class BugService {
   async getBugs(query) {
-    const bugs = await dbContext.Bugs.find(query)
+    const bugs = await dbContext.Bugs.find(query).sort('-createdAt').populate('creator')
     return bugs
   }
 

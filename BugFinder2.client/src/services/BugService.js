@@ -9,6 +9,7 @@ class BugService {
   async getBugs() {
     const res = await api.get('api/bugs')
     AppState.bugs = res.data.map(b => new Bug(b))
+    logger.log('bugs', AppState.bugs)
   }
 
   async getNotesByBugId(bugId) {
@@ -29,7 +30,6 @@ class BugService {
   }
 
   async getBugById(bugId) {
-    AppState.bug = []
     const res = await api.get(`api/bugs/${bugId}`)
     AppState.bug = new Bug(res.data)
     logger.log('here is the bug', AppState.bug)
@@ -38,6 +38,16 @@ class BugService {
   async createNote(bugId, noteData) {
     const res = await api.post('api/notes', noteData)
     AppState.notes.push(new Note(res.data))
+  }
+
+  async deleteNote(noteId) {
+    const res = await api.delete(`api/notes/${noteId}`)
+    AppState.notes = AppState.notes.filter(n => n.id !== noteId)
+  }
+
+  async editBug(bugData, bugId) {
+    const res = await api.put(`api/bugs/${bugId}`, bugData)
+    AppState.bugs = new Bug(res.data)
   }
 }
 export const bugService = new BugService()

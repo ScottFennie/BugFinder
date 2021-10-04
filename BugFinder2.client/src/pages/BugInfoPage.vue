@@ -8,13 +8,65 @@
       </div>
       <div class="col-12">
         <div class="mx-5 mt-3 row py-3 bg-white rounded shadow-sm spill">
+          <div class="col-12" v-if="account.id === bug.creatorId">
+            <form @submit.prevent="editBug()" class="mb-3">
+              <div class="row">
+                <div class="col-12">
+                  <h5 class="mb-2 t-color">
+                    Edit Bug
+                  </h5>
+                  <input type="text"
+                         class="form-control bg-white mb-2"
+                         id="exampleFormControlInput1"
+                         placeholder="Bug Title"
+                         v-model="editable.title"
+                         name="title"
+                         required
+                  >
+                </div>
+                <div class="col-12">
+                  <div class="input-group mb-2">
+                    <input type="number"
+                           class="form-control bg-white"
+                           name="weight"
+                           placeholder="Priority (1-5)"
+                           aria-label="Recipient's username"
+                           aria-describedby="button-addon2"
+                           min="1"
+                           max="5"
+                           v-model="editable.priority"
+                           required
+                    >
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="input-group mb-2">
+                    <input type="text"
+                           class="form-control bg-white"
+                           name="description"
+                           placeholder="Add Description"
+                           aria-label="Recipient's username"
+                           aria-describedby="button-addon2"
+                           v-model="editable.description"
+                           required
+                    >
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <button type="submit" class="p-1 px-3 btn button-pink text-white" title="Create a Task" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="mdi mdi-plus f-16" title="Add Task" />
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
           <div class="col-4 d-flex flex-column">
             <h6 class="ms-2">
               reported by
             </h6>
             <div class="">
-              <h3 class="ms-2">
-                Creator Name
+              <h3 class="ms-2" v-if="bug.creator">
+                {{ bug.creator.name }}
               </h3>
             </div>
           </div>
@@ -72,24 +124,37 @@
 </template>
 
 <script>
-import { computed, onMounted } from '@vue/runtime-core'
+import { computed, onMounted, ref } from '@vue/runtime-core'
 import { useRoute } from 'vue-router'
 import { bugService } from '../services/BugService'
 import { AppState } from '../AppState'
+import Pop from '../utils/Pop'
 export default {
   setup() {
     const route = useRoute()
+    const editable = ref({})
     onMounted(async() => {
       await bugService.getBugById(route.params.bugId)
       await bugService.getNotesByBugId(route.params.bugId)
     })
     return {
+      editable,
       bug: computed(() => AppState.bug),
-      notes: computed(() => AppState.notes)
+      notes: computed(() => AppState.notes),
+      account: computed(() => AppState.account),
+
+      async editBug() {
+        try {
+          await bugService.editBug(editable.value, route.params.bugId)
+          Pop.toast('bug edited', 'success')
+        } catch (error) {
+          Pop.toast(error.message, 'error')
+        }
+      }
     }
   }
-
 }
+
 </script>
 
 <style lang="scss">
