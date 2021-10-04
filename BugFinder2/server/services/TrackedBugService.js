@@ -20,7 +20,7 @@ class TrackedBugService {
 
   async deleteTrackedBug(bugId, userId) {
     const bug = await this.getBugById(bugId)
-    if (userId !== bug.creatorId.toString()) {
+    if (userId !== bug.accountId.toString()) {
       throw new Forbidden('you did not create this bug')
     }
     await bug.remove()

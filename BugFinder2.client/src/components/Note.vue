@@ -1,8 +1,8 @@
 <template>
   <div class="shadow-sm my-2 rounded">
     <div class="col-12 d-flex justify-content-between">
-      <h5 class="pt-2">
-        Creator Name
+      <h5 class="pt-2" v-if="note.creator">
+        {{ note.creator.name }}
       </h5>
       <div class="div">
         <i class="mdi mdi-close text-danger f-20 selectable" @click="deleteNote()" title="Remove Note"></i>

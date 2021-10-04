@@ -1,15 +1,20 @@
 <template>
   <div class="container-fluid">
     <div class="row bg-img">
-      <div class="col-12 px-0 ">
+      <div class="col-12 px-0 d-flex justify-content-between align-items-center">
         <h1 class="text-white mt-3 ms-5">
           {{ bug.title }}
         </h1>
+        <div class="me-3" v-if="bug.creatorId === account.id">
+          <button class="btn button-white text-pink text-white mt-2 me-5" v-if="bug.closed === false">
+            Close
+          </button>
+        </div>
       </div>
       <div class="col-12">
         <div class="mx-5 mt-3 row py-3 bg-white rounded shadow-sm spill">
           <div class="col-12" v-if="account.id === bug.creatorId">
-            <form @submit.prevent="editBug()" class="mb-3">
+            <form @submit.prevent="editBug()" class="mb-3" v-if="bug.closed === false">
               <div class="row">
                 <div class="col-12">
                   <h5 class="mb-2 t-color">
@@ -170,6 +175,11 @@ export default {
 }
 .button-pink{
 background-color: #E62D90;
+border: none;
+}
+.button-white{
+background-color: #E62D90;
+color: #ffffff;
 border: none;
 }
 .text-pink{
