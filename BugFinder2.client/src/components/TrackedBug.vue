@@ -31,6 +31,9 @@
 
 <script>
 import { Bug } from '../models/Bug'
+import { router } from '../router'
+import { bugService } from '../services/BugService'
+import Pop from '../utils/Pop'
 export default {
   props: {
     bug: {
@@ -40,6 +43,14 @@ export default {
   },
   setup() {
     return {
+      async goToBugPage(bugId) {
+        try {
+          await bugService.gotToBugPage(bugId)
+          router.push({ name: 'BugInfo', params: { bugId: bugId } })
+        } catch (error) {
+          Pop.toast(error)
+        }
+      }
 
     }
   }

@@ -6,7 +6,7 @@
           {{ bug.title }}
         </h1>
         <div class="me-3" v-if="bug.creatorId === account.id">
-          <button class="btn button-white text-pink text-white mt-2 me-5" v-if="bug.closed === false">
+          <button class="btn button-white text-pink text-white mt-2 me-5" v-if="bug.closed === false" @click="closeBug()">
             Close
           </button>
         </div>
@@ -85,7 +85,12 @@
           </div>
           <div class="col-2 d-flex flex-column">
             <h6>Status</h6>
-            <h5>Open</h5>
+            <h5 v-if="bug.closed === false">
+              Open
+            </h5>
+            <h5 v-if="bug.closed === true">
+              Closed
+            </h5>
           </div>
           <div class="col-12">
             <h6 class="pt-5 ms-3">
@@ -99,6 +104,9 @@
             <button class="ms-2 mt-3 btn button-pink text-white" @click="createTrackedBug()">
               Track
             </button>
+            <div class="d-flex flex-row mt-3">
+              <Trackers :bug="b" v-for="b in tbugs" :key="b.id" />
+            </div>
           </div>
         </div>
       </div>
@@ -134,6 +142,7 @@ import { useRoute } from 'vue-router'
 import { bugService } from '../services/BugService'
 import { AppState } from '../AppState'
 import Pop from '../utils/Pop'
+
 export default {
   setup() {
     const route = useRoute()
@@ -141,12 +150,14 @@ export default {
     onMounted(async() => {
       await bugService.getBugById(route.params.bugId)
       await bugService.getNotesByBugId(route.params.bugId)
+      await bugService.getTrackedBugs(route.params.bugId)
     })
     return {
       editable,
       bug: computed(() => AppState.bug),
       notes: computed(() => AppState.notes),
       account: computed(() => AppState.account),
+      tbugs: computed(() => AppState.currentTrackedBugs),
 
       async editBug() {
         try {
@@ -160,6 +171,14 @@ export default {
         try {
           await bugService.createTrackedBug(route.params.bugId)
           Pop.toast('bug tracked', 'success')
+        } catch (error) {
+          Pop.toast(error.message, 'error')
+        }
+      },
+      async closeBug() {
+        try {
+          await bugService.closeBug(route.params.bugId)
+          Pop.toast('bug closed', 'success')
         } catch (error) {
           Pop.toast(error.message, 'error')
         }

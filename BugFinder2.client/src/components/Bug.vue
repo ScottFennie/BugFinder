@@ -22,7 +22,7 @@
           Open
         </h6>
         <h6 v-if="bug.closed === true">
-          Open
+          Closed
         </h6>
       </div>
     </div>

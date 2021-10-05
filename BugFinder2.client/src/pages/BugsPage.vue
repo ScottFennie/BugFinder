@@ -28,7 +28,9 @@
             <h6>Last Updated</h6>
           </div>
           <div class="col-md-2">
-            <h6>Closed/Open</h6>
+            <h6 class="selectable" @click="toggleClosed()">
+              Closed/Open
+            </h6>
           </div>
         </div>
       </div>
@@ -84,6 +86,9 @@ export default {
       bugs: computed(() => AppState.bugs.filter(onlyOpen).sort(prioritySorter)),
       toggleAscending() {
         ascending.value = !ascending.value
+      },
+      toggleClosed() {
+        closed.value = !closed.value
       }
     }
   }

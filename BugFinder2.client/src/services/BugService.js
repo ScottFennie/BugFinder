@@ -36,6 +36,11 @@ class BugService {
     logger.log('here is the bug', AppState.bug)
   }
 
+  async getTrackedBugs(bugId) {
+    const res = await api.get(`api/bugs/${bugId}/trackedbugs`)
+    AppState.currentTrackedBugs = res.data
+  }
+
   async createNote(bugId, noteData) {
     const res = await api.post('api/notes', noteData)
     AppState.notes.push(new Note(res.data))
@@ -57,6 +62,11 @@ class BugService {
   async editBug(bugData, bugId) {
     const res = await api.put(`api/bugs/${bugId}`, bugData)
     AppState.bugs = new Bug(res.data)
+  }
+
+  async closeBug(bugId) {
+    const res = await api.delete(`api/bugs/${bugId}`)
+    AppState.bug = new Bug(res.data)
   }
 }
 export const bugService = new BugService()

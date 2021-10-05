@@ -1,9 +1,12 @@
 <template>
   <div class="shadow-sm my-2 rounded">
     <div class="col-12 d-flex justify-content-between">
-      <h5 class="pt-2" v-if="note.creator">
-        {{ note.creator.name }}
-      </h5>
+      <div>
+        <img :src="note.creator.picture" alt="" class="prof-img" v-if="note.creator">
+        <h5 class="pt-2" v-if="note.creator">
+          {{ note.creator.name }}
+        </h5>
+      </div>
       <div class="div">
         <i class="mdi mdi-close text-danger f-20 selectable" @click="deleteNote()" title="Remove Note"></i>
       </div>
@@ -46,6 +49,14 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.prof-img{
+  border-top-left-radius: 50% 50%;
+  border-top-right-radius: 50% 50%;
+  border-bottom-right-radius: 50% 50%;
+  border-bottom-left-radius: 50% 50%;
+  height: 4vh;
+  width: 4vh;
+}
 
 </style>

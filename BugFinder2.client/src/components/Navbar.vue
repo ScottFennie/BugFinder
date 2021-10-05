@@ -61,7 +61,7 @@
           >
             <router-link :to="{ name: 'Account' }">
               <div class="list-group-item list-group-item-action hoverable">
-                Manage Account
+                My Tracked Bugs
               </div>
             </router-link>
             <div
