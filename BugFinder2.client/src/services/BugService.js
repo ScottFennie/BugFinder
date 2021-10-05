@@ -71,10 +71,10 @@ class BugService {
   }
 
   async deleteMyTrackedBug(myaccountId) {
-    // debugger
     const currenttbug = AppState.trackedBugs.find(b => b.accountId === myaccountId)
     const res = await api.delete('api/trackedbugs/' + currenttbug.id)
     AppState.trackedBugs = AppState.trackedBugs.filter(b => b.id !== currenttbug.id)
+    AppState.mybugobjects = AppState.mybugobjects.filter(b => b.id !== currenttbug.bugId)
   }
 
   async isTracked(bugId) {

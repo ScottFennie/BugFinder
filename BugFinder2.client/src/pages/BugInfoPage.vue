@@ -69,10 +69,11 @@
             <h6 class="ms-2">
               reported by
             </h6>
-            <div class="">
-              <h3 class="ms-2" v-if="bug.creator">
+            <div class="d-flex flex-row" v-if="bug.creator">
+              <img :src="bug.creator.picture" alt="" class="prof-img">
+              <h4 class="ms-2" v-if="bug.creator">
                 {{ bug.creator.name }}
-              </h3>
+              </h4>
             </div>
           </div>
           <div class="col-3 d-flex flex-column">
@@ -229,6 +230,14 @@ border: none;
 }
 .text-pink{
 color: #E62D90;
+}
+.prof-img{
+  border-top-left-radius: 50% 50%;
+  border-top-right-radius: 50% 50%;
+  border-bottom-right-radius: 50% 50%;
+  border-bottom-left-radius: 50% 50%;
+  height: 4vh;
+  width: 4vh;
 }
 
 </style>

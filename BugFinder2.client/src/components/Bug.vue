@@ -15,7 +15,7 @@
         </h6>
       </div>
       <div class="col-md-2">
-        <h6>Last Updated</h6>
+        <h6>{{ new Date(bug.creator.createdAt).toDateString() }}</h6>
       </div>
       <div class="col-md-2">
         <h6 v-if="bug.closed === false">
