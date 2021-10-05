@@ -27,6 +27,8 @@ class AccountService {
       bugArray.push(AppState.mybugs[i].bugId)
     }
 
+    AppState.trackedBugs = res.data
+
     const myBugArray = []
 
     const works = AppState.bugs.filter(b => !myBugArray.includes(b))
