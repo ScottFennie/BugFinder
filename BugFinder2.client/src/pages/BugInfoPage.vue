@@ -101,8 +101,11 @@
             </p>
           </div>
           <div class="col-12">
-            <button class="ms-2 mt-3 btn button-pink text-white" @click="createTrackedBug()">
-              Track
+            <button class="ms-2 mt-3 btn button-pink text-white" @click="createTrackedBug()" v-if="isTracked === false">
+              {{ isTracked }}
+            </button>
+            <button class="ms-2 mt-3 btn button-pink text-white" @click="createTrackedBug()" v-if="isTracked === true">
+              Untrack
             </button>
             <div class="d-flex flex-row mt-3">
               <Trackers :bug="b" v-for="b in tbugs" :key="b.id" />
@@ -142,22 +145,29 @@ import { useRoute } from 'vue-router'
 import { bugService } from '../services/BugService'
 import { AppState } from '../AppState'
 import Pop from '../utils/Pop'
+import { accountService } from '../services/AccountService'
 
 export default {
   setup() {
     const route = useRoute()
     const editable = ref({})
+    const tracked = ref(false)
+
     onMounted(async() => {
       await bugService.getBugById(route.params.bugId)
       await bugService.getNotesByBugId(route.params.bugId)
       await bugService.getTrackedBugs(route.params.bugId)
+      await accountService.getMyTrackedBugs()
+      await bugService.isTracked(route.params.bugId)
     })
     return {
+      tracked,
       editable,
       bug: computed(() => AppState.bug),
       notes: computed(() => AppState.notes),
       account: computed(() => AppState.account),
       tbugs: computed(() => AppState.currentTrackedBugs),
+      isTracked: computed(() => AppState.isTracked),
 
       async editBug() {
         try {

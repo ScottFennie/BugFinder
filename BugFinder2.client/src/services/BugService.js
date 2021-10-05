@@ -57,6 +57,7 @@ class BugService {
     const res = await api.post('api/trackedbugs', tbug)
     AppState.trackedBugs.push(new TrackedBug(res.data))
     logger.log('new tracked bug', res)
+    logger.log('checking Appstate', AppState.isTracked)
   }
 
   async editBug(bugData, bugId) {
@@ -67,6 +68,18 @@ class BugService {
   async closeBug(bugId) {
     const res = await api.delete(`api/bugs/${bugId}`)
     AppState.bug = new Bug(res.data)
+  }
+
+  async isTracked(bugId) {
+    AppState.isTracked = false
+    const bob = []
+    debugger
+    bob.push(AppState.mybugobjects.find(b => b.id === bugId))
+    if (bob !== []) {
+      AppState.isTracked = true
+      logger.log('changed to true', AppState.isTracked)
+    }
+    // AppState.isTracked = false
   }
 }
 export const bugService = new BugService()
