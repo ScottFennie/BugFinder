@@ -11,21 +11,23 @@
       </div>
       <div class="mt-5 col-12 border border-bottom-2 border-top-0 border-end-0 border-start-0">
         <div class="row rounded">
-          <div class="col-2">
+          <div class="col-md-2">
             <h6 class="">
               Title
             </h6>
           </div>
-          <div class="col-3">
-            <h6>Priority</h6>
+          <div class="col-md-3">
+            <h6 class="selectable" @click="toggleAscending()">
+              Priority
+            </h6>
           </div>
-          <div class="col-3">
+          <div class="col-md-3">
             <h6>Reported By</h6>
           </div>
-          <div class="col-2">
+          <div class="col-md-2">
             <h6>Last Updated</h6>
           </div>
-          <div class="col-2">
+          <div class="col-md-2">
             <h6>Closed/Open</h6>
           </div>
         </div>
@@ -47,12 +49,28 @@
 </template>
 
 <script>
-import { computed, onMounted } from '@vue/runtime-core'
+import { computed, onMounted, ref } from '@vue/runtime-core'
 import { bugService } from '../services/BugService'
 import Pop from '../utils/Pop'
 import { AppState } from '../AppState'
 export default {
   setup() {
+    const ascending = ref(true)
+    const closed = ref(false)
+
+    function prioritySorter(a, b) {
+      if (ascending.value) {
+        return b.priority - a.priority
+      }
+      return a.priority - b.priority
+    }
+
+    function onlyOpen(b) {
+      if (closed.value) {
+        return b.closed === true
+      }
+      return true
+    }
     onMounted(async() => {
       try {
         await bugService.getBugs()
@@ -61,7 +79,12 @@ export default {
       }
     })
     return {
-      bugs: computed(() => AppState.bugs)
+      ascending,
+      closed,
+      bugs: computed(() => AppState.bugs.filter(onlyOpen).sort(prioritySorter)),
+      toggleAscending() {
+        ascending.value = !ascending.value
+      }
     }
   }
 }
