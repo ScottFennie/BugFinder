@@ -96,7 +96,7 @@
             </p>
           </div>
           <div class="col-12">
-            <button class="ms-2 mt-3 btn button-pink text-white">
+            <button class="ms-2 mt-3 btn button-pink text-white" @click="createTrackedBug()">
               Track
             </button>
           </div>
@@ -152,6 +152,14 @@ export default {
         try {
           await bugService.editBug(editable.value, route.params.bugId)
           Pop.toast('bug edited', 'success')
+        } catch (error) {
+          Pop.toast(error.message, 'error')
+        }
+      },
+      async createTrackedBug() {
+        try {
+          await bugService.createTrackedBug(route.params.bugId)
+          Pop.toast('bug tracked', 'success')
         } catch (error) {
           Pop.toast(error.message, 'error')
         }

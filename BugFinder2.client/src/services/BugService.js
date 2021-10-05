@@ -1,6 +1,7 @@
 import { AppState } from '../AppState'
 import { Bug } from '../models/Bug'
 import { Note } from '../models/Note'
+import { TrackedBug } from '../models/TrackedBug'
 import { router } from '../router'
 import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
@@ -43,6 +44,14 @@ class BugService {
   async deleteNote(noteId) {
     const res = await api.delete(`api/notes/${noteId}`)
     AppState.notes = AppState.notes.filter(n => n.id !== noteId)
+  }
+
+  async createTrackedBug(bugID) {
+    const tbug = {}
+    tbug.bugId = bugID
+    const res = await api.post('api/trackedbugs', tbug)
+    AppState.trackedBugs.push(new TrackedBug(res.data))
+    logger.log('new tracked bug', res)
   }
 
   async editBug(bugData, bugId) {
