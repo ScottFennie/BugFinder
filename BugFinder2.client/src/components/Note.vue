@@ -1,6 +1,6 @@
 <template>
-  <div class="shadow my-2 rounded">
-    <div class="col-12 d-flex justify-content-between">
+  <div class="shadow-sm note-card my-2 rounded">
+    <div class="col-12 pt-2 d-flex justify-content-between">
       <div class="d-flex flex-row">
         <img :src="note.creator.picture" alt="" class="prof-img" v-if="note.creator">
         <h5 class="ms-2 pt-1" v-if="note.creator">
@@ -59,6 +59,9 @@ export default {
   border-bottom-left-radius: 50% 50%;
   height: 4vh;
   width: 4vh;
+}
+.note-card{
+ border: 1px solid #ff79c18c;
 }
 
 </style>
