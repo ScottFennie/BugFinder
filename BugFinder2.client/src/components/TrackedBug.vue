@@ -1,27 +1,27 @@
 <template>
-  <div :class="bug.closed === true ? 'col-12 mt-3 bg-dark text-white' : 'col-12 mt-3'">
-    <div :class=" bug.priority >= 5 ? 'high-priority row shadow-sm rounded bug-card py-3' : 'row shadow-sm rounded bug-card py-3'" @click="goToBugPage(bug.id)">
+  <div :class="bug.bug.closed === true ? 'col-12 mt-3 bg-dark text-white' : 'col-12 mt-3'">
+    <div :class=" bug.bug.priority >= 5 ? 'high-priority row shadow-sm rounded bug-card py-3' : 'row shadow-sm rounded bug-card py-3'" @click="goToBugPage(bug.bug.id)">
       <div class="col-md-2">
         <h6 class="">
-          {{ bug.title }}
+          {{ bug.bug.title }}
         </h6>
       </div>
       <div class="col-md-3">
-        <h6>{{ bug.priority }}</h6>
+        <h6>{{ bug.bug.priority }}</h6>
       </div>
       <div class="col-md-3">
-        <h6 v-if="bug.creator">
-          {{ bug.creator.name }}
+        <h6 v-if="bug.bug.creator">
+          {{ bug.bug.creator.name }}
         </h6>
       </div>
       <div class="col-md-2">
-        <h6>Last Updated</h6>
+        <h6>{{ new Date(bug.bug.updatedAt).toDateString() }}</h6>
       </div>
       <div class="col-md-2">
-        <h6 v-if="bug.closed === false">
+        <h6 v-if="bug.bug.closed === false">
           Open
         </h6>
-        <h6 v-if="bug.closed === true">
+        <h6 v-if="bug.bug.closed === true">
           Closed
         </h6>
       </div>

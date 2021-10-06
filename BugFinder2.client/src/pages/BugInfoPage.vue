@@ -82,7 +82,7 @@
           </div>
           <div class="col-3 d-flex flex-column">
             <h6>Last Updated</h6>
-            <h5>Jan 5 1997</h5>
+            <h5>{{ new Date(bug.updatedAt).toDateString() }}</h5>
           </div>
           <div class="col-2 d-flex flex-column">
             <h6>Status</h6>
@@ -174,6 +174,7 @@ export default {
         try {
           await bugService.editBug(editable.value, route.params.bugId)
           Pop.toast('bug edited', 'success')
+          await bugService.getBugById(route.params.bugId)
         } catch (error) {
           Pop.toast(error.message, 'error')
         }
@@ -182,12 +183,15 @@ export default {
         try {
           await bugService.createTrackedBug(route.params.bugId)
           Pop.toast('bug tracked', 'success')
+          await bugService.getTrackedBugs(route.params.bugId)
         } catch (error) {
           Pop.toast(error.message, 'error')
         }
       },
       async closeBug() {
         try {
+          const yes = await Pop.confirm('Are you sure you want to close this <em>bug</em>?')
+          if (!yes) { return }
           await bugService.closeBug(route.params.bugId)
           Pop.toast('bug closed', 'success')
         } catch (error) {
@@ -196,8 +200,9 @@ export default {
       },
       async deleteMyTrackedBug() {
         try {
-          await bugService.deleteMyTrackedBug(this.account.id)
+          await bugService.deleteMyTrackedBug(route.params.bugId)
           Pop.toast('bug untracked', 'success')
+          await bugService.getTrackedBugs(route.params.bugId)
         } catch (error) {
           Pop.toast(error.message, 'error')
         }

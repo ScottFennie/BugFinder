@@ -1,9 +1,9 @@
 <template>
-  <div class="shadow-sm my-2 rounded">
+  <div class="shadow my-2 rounded">
     <div class="col-12 d-flex justify-content-between">
-      <div>
+      <div class="d-flex flex-row">
         <img :src="note.creator.picture" alt="" class="prof-img" v-if="note.creator">
-        <h5 class="pt-2" v-if="note.creator">
+        <h5 class="ms-2 pt-1" v-if="note.creator">
           {{ note.creator.name }}
         </h5>
       </div>
@@ -12,7 +12,9 @@
       </div>
     </div>
     <div class="col-12">
-      <p>{{ note.body }}</p>
+      <p class="pt-2">
+        {{ note.body }}
+      </p>
     </div>
   </div>
 </template>

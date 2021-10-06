@@ -19,7 +19,7 @@
             </h6>
           </div>
           <div class="col-md-3">
-            <h6>Reported By</h6>
+            <!-- <h6>Reported By</h6> -->
           </div>
           <div class="col-md-2">
             <h6>Last Updated</h6>
@@ -48,7 +48,8 @@ export default {
     })
     return {
       account: computed(() => AppState.account),
-      bugs: computed(() => AppState.mybugobjects)
+      bugs: computed(() => AppState.trackedBugs)
+
     }
   }
 }
