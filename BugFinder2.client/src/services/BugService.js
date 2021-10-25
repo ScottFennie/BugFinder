@@ -58,6 +58,7 @@ class BugService {
     AppState.trackedBugs.push(res.data)
     logger.log('new tracked bug', res)
     logger.log('checking Appstate', AppState.isTracked)
+    AppState.isTracked = true
   }
 
   async editBug(bugData, bugId) {
